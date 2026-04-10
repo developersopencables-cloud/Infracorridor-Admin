@@ -11,7 +11,6 @@ import { generateHTML } from '@tiptap/html';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
-import DOMPurify from 'isomorphic-dompurify';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -42,12 +41,9 @@ function convertTipTapToHTML(content: string): string {
       }),
     ]);
 
-    // Sanitize HTML to prevent XSS
-    const sanitizedHtml = DOMPurify.sanitize(html);
-
     // Post-process: Fix external links that lack a protocol (e.g., 'www.google.com')
     // This prevents them from being treated as relative links by the browser.
-    const fixedHtml = sanitizedHtml.replace(/href="([^"|#|/][^"]+)"/g, (match, p1) => {
+    const fixedHtml = html.replace(/href="([^"|#|/][^"]+)"/g, (match, p1) => {
       // If it looks like a domain (has a dot) and doesn't have a protocol or start with a slash/hash
       if (!p1.includes('://') && !p1.startsWith('mailto:') && !p1.startsWith('tel:') && (p1.startsWith('www.') || p1.includes('.'))) {
         return `href="https://${p1}"`;
