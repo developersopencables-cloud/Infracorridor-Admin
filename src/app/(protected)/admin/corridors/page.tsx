@@ -65,7 +65,7 @@ async function fetchCorridors(params: {
     query.type = params.type;
   }
 
-  const sanitizedSearch = sanitizeSearch(params.search);
+  const sanitizedSearch = sanitizeSearch(params.search ?? null);
   if (sanitizedSearch) {
     query.$or = [
       { title: { $regex: sanitizedSearch, $options: "i" } },

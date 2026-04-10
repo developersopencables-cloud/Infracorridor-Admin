@@ -35,7 +35,7 @@ export default function AdminsPage() {
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [deletingUser, setDeletingUser] = useState<User | null>(null);
   const [creatingUser, setCreatingUser] = useState(false);
-  const [stats, setStats] = useState<{ admin: number; user: number; total: number } | undefined>();
+  const [stats, setStats] = useState<{ admin: number; user: number; buyer: number; seller: number; total: number } | undefined>();
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function AdminsPage() {
   } = useQuery<{
     success: boolean;
     data: User[];
-    stats?: { admin: number; user: number; total: number };
+    stats?: { admin: number; user: number; buyer: number; seller: number; total: number };
   }>({
     queryKey: ["users", { role: "admin", searchQuery }],
     queryFn: async () => {
@@ -168,6 +168,8 @@ export default function AdminsPage() {
             onEdit={handleEdit}
             onDelete={handleDelete}
             stats={stats}
+            totalItems={stats?.total ?? users.length}
+            currentPage={1}
           />
         </div>
       </SidebarInset>

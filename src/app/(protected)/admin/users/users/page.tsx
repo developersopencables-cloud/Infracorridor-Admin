@@ -155,6 +155,8 @@ export default function BuyersPage() {
                         onEdit={handleEdit}
                         onDelete={handleDelete}
                         stats={stats}
+                        totalItems={stats?.total ?? users.length}
+                        currentPage={1}
                     />
                 </div>
             </SidebarInset>

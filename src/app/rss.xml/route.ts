@@ -42,7 +42,7 @@ export async function GET() {
       <author>${escapeXml(blog.authorName)}</author>
       <pubDate>${pubDate}</pubDate>
       ${blog.coverImageUrl ? `<enclosure url="${escapeXml(blog.coverImageUrl)}" type="image/jpeg" />` : ''}
-      ${blog.keywords ? blog.keywords.map(kw => `<category>${escapeXml(kw)}</category>`).join('\n      ') : ''}
+      ${blog.keywords ? blog.keywords.map((kw: string) => `<category>${escapeXml(kw)}</category>`).join('\n      ') : ''}
     </item>`;
       })
       .join('');

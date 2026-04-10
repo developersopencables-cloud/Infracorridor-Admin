@@ -30,6 +30,7 @@ import { getDb } from "@/database/mongoose";
 import connectMongoose from "@/database/mongoose-connection";
 import { SyncHistoryModel } from "@/models";
 import { User } from "@/components/user-management/user-management-table";
+import { sanitizeSearch } from "@/utils/validation";
 import { UsersPageClient } from "./users-page-client";
 
 interface PageProps {
@@ -250,6 +251,7 @@ export default async function UsersPage({ searchParams }: PageProps) {
                     users={users}
                     totalItems={total}
                     currentPage={page}
+                    stats={stats}
                   />
                 </div>
               </Suspense>
